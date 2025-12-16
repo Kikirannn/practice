@@ -28,6 +28,7 @@
                         <li><a href="/Learning1/admin/validasi.php" class="<?= isset($activePage) && $activePage === 'validasi' ? 'active' : '' ?>">Validasi</a></li>
                         <li><a href="/Learning1/admin/laporan.php" class="<?= isset($activePage) && $activePage === 'laporan' ? 'active' : '' ?>">Semua Laporan</a></li>
                         <li><a href="/Learning1/admin/reporting.php" class="<?= isset($activePage) && $activePage === 'reporting' ? 'active' : '' ?>">Reporting</a></li>
+                        <li><a href="/Learning1/admin/kelola_user.php" class="<?= isset($activePage) && $activePage === 'kelola_user' ? 'active' : '' ?>">Kelola User</a></li>
                     <?php endif; ?>
                     
                     <?php if ($role === 'teknisi'): ?>
