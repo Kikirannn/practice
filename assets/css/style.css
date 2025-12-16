@@ -1,0 +1,606 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #000;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background: #000;
+    padding: 15px 0;
+    border-bottom: 2px solid #000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+.navbar-menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.navbar-menu a:hover,
+.navbar-menu a.active {
+    background: #fff;
+    color: #000;
+}
+
+/* Card */
+.card {
+    background: #fff;
+    border: 1px solid #000;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+.card-body {
+    padding: 10px 0;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #000;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.stat-card p {
+    font-size: 13px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn:hover {
+    background: #000;
+    color: #fff;
+}
+
+.btn-primary {
+    background: #000;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #fff;
+    color: #000;
+}
+
+.btn-success {
+    background: #fff;
+    color: #000;
+}
+
+.btn-danger {
+    background: #fff;
+    color: #000;
+}
+
+.btn-info {
+    background: #fff;
+    color: #000;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    outline: 2px solid #000;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Tables */
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+table th {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+table td {
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+table tbody tr:hover {
+    background: #f0f0f0;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border: 1px solid #000;
+    font-size: 11px;
+}
+
+.badge-warning,
+.badge-info,
+.badge-success,
+.badge-danger {
+    background: #fff;
+    color: #000;
+}
+
+/* Alerts */
+.alert {
+    padding: 12px;
+    border: 1px solid #000;
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background: #fff;
+}
+
+.alert-danger {
+    background: #fff;
+}
+
+.alert-info {
+    background: #fff;
+}
+
+/* Login */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+
+.login-card {
+    background: #fff;
+    border: 2px solid #000;
+    padding: 40px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-header h2 {
+    margin-bottom: 10px;
+}
+
+/* Filter */
+.filter-form {
+    background: #fff;
+    border: 1px solid #000;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Image */
+.img-preview {
+    max-width: 100%;
+    max-height: 250px;
+    border: 1px solid #000;
+    margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+    }
+
+    .stats-grid,
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        font-size: 11px;
+    }
+
+    table th,
+    table td {
+        padding: 6px;
+    }
+}
+
+/* Utilities */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+/* ========================================
+   PRINT STYLES - Professional Print Layout
+   ======================================== */
+@media print {
+
+    /* Reset & Base */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 10mm;
+    }
+
+    /* Hide Elements Not Needed in Print */
+    .header,
+    .navbar,
+    .navbar-brand,
+    .navbar-menu,
+    .footer,
+    .btn,
+    button,
+    .filter-form,
+    .alert,
+    input[type="submit"],
+    input[type="button"],
+    a[href^="#"] {
+        display: none !important;
+    }
+
+    /* Page Settings */
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    /* Headings */
+    h1 {
+        font-size: 18pt;
+        font-weight: bold;
+        text-align: center;
+        margin: 0 0 20pt 0;
+        padding-bottom: 10pt;
+        border-bottom: 2pt solid #000;
+        page-break-after: avoid;
+    }
+
+    h2,
+    h3 {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 15pt 0 10pt 0;
+        page-break-after: avoid;
+    }
+
+    /* Print Header Info */
+    .print-header {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 15pt;
+        padding-bottom: 10pt;
+        border-bottom: 1pt solid #000;
+    }
+
+    .print-header h2 {
+        margin: 0;
+        font-size: 16pt;
+    }
+
+    .print-header p {
+        margin: 5pt 0 0 0;
+        font-size: 10pt;
+    }
+
+    /* Cards */
+    .card {
+        border: none;
+        padding: 0;
+        margin-bottom: 20pt;
+        page-break-inside: avoid;
+    }
+
+    .card-header {
+        font-size: 13pt;
+        font-weight: bold;
+        margin-bottom: 10pt;
+        padding-bottom: 5pt;
+        border-bottom: 1pt solid #000;
+        page-break-after: avoid;
+    }
+
+    .card-body {
+        padding: 0;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10pt;
+        margin-bottom: 20pt;
+        page-break-inside: avoid;
+    }
+
+    .stat-card {
+        border: 1pt solid #000;
+        padding: 10pt;
+        text-align: center;
+        page-break-inside: avoid;
+    }
+
+    .stat-card h3 {
+        font-size: 20pt;
+        margin: 0 0 5pt 0;
+    }
+
+    .stat-card p {
+        font-size: 10pt;
+        margin: 0;
+    }
+
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15pt;
+        font-size: 9pt;
+        page-break-inside: auto;
+    }
+
+    table thead {
+        display: table-header-group;
+        background: #000 !important;
+        color: #fff !important;
+    }
+
+    table tbody {
+        display: table-row-group;
+    }
+
+    table th {
+        background: #000 !important;
+        color: #fff !important;
+        padding: 6pt 8pt;
+        text-align: left;
+        font-weight: bold;
+        border: 1pt solid #000;
+        page-break-after: avoid;
+    }
+
+    table td {
+        padding: 5pt 8pt;
+        border: 1pt solid #000;
+        page-break-inside: avoid;
+    }
+
+    table tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    table tbody tr:nth-child(even) {
+        background: #f5f5f5 !important;
+    }
+
+    /* Badges */
+    .badge {
+        border: 1pt solid #000;
+        padding: 2pt 6pt;
+        font-size: 8pt;
+        background: #fff !important;
+        color: #000 !important;
+        white-space: nowrap;
+    }
+
+    /* Images */
+    .img-preview {
+        max-width: 60mm;
+        max-height: 60mm;
+        border: 1pt solid #000;
+        page-break-inside: avoid;
+    }
+
+    /* Page Breaks */
+    .page-break-before {
+        page-break-before: always;
+    }
+
+    .page-break-after {
+        page-break-after: always;
+    }
+
+    .no-page-break {
+        page-break-inside: avoid;
+    }
+
+    /* Print Info Footer */
+    .print-footer {
+        display: block !important;
+        margin-top: 20pt;
+        padding-top: 10pt;
+        border-top: 1pt solid #000;
+        font-size: 9pt;
+        text-align: center;
+    }
+
+    /* Utility Classes for Print */
+    .print-only {
+        display: block !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    /* Links - show URL */
+    a[href]:after {
+        content: "";
+    }
+
+    /* Ensure black text for print */
+    body,
+    p,
+    td,
+    th,
+    li,
+    div,
+    span {
+        color: #000 !important;
+    }
+}
