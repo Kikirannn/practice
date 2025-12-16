@@ -1,7 +1,7 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 requireRole('admin');
 
@@ -142,7 +142,7 @@ foreach ($users as $user) {
     }
 }
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <style>
@@ -595,4 +595,4 @@ window.onclick = function(event) {
 }
 </script>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

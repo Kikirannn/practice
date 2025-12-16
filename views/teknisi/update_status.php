@@ -1,8 +1,8 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
-require_once '../includes/tracking.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
+require_once '../../includes/tracking.php';
 
 requireRole('teknisi');
 
@@ -75,5 +75,5 @@ if ($error) {
 }
 
 // If accessed directly without POST, redirect to tasks
-redirect('/Learning1/teknisi/tugas.php');
+redirect('/Learning1/views/teknisi/tugas.php');
 ?>

@@ -1,7 +1,7 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 requireRole('admin');
 
@@ -58,7 +58,7 @@ $sql = "SELECT user_id, nama_lengkap FROM users WHERE role = 'teknisi' ORDER BY 
 $stmt = $pdo->query($sql);
 $technicians = $stmt->fetchAll();
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <!-- Print Header (hidden on screen, shown on print) -->
@@ -187,4 +187,4 @@ include '../includes/header.php';
     <p>Total Laporan Ditampilkan: <?= count($reports) ?></p>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

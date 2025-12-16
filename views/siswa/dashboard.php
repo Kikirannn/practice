@@ -1,7 +1,7 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 requireRole('siswa');
 
@@ -37,7 +37,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([':user_id' => $userId]);
 $recentReports = $stmt->fetchAll();
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <h1>Dashboard Siswa</h1>
@@ -106,4 +106,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

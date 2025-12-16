@@ -1,7 +1,7 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 requireRole('admin');
 
@@ -33,7 +33,7 @@ $sql = "SELECT l.*, u.nama_lengkap as pelapor, t.nama_lengkap as teknisi_nama
 $stmt = $pdo->query($sql);
 $recentReports = $stmt->fetchAll();
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <h1>Dashboard Admin</h1>
@@ -99,4 +99,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

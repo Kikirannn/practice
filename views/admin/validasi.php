@@ -1,8 +1,8 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
-require_once '../includes/tracking.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
+require_once '../../includes/tracking.php';
 
 requireRole('admin');
 
@@ -98,7 +98,7 @@ $sql = "SELECT user_id, nama_lengkap FROM users WHERE role = 'teknisi' ORDER BY 
 $stmt = $pdo->query($sql);
 $technicians = $stmt->fetchAll();
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <h1>Validasi Laporan</h1>
@@ -144,7 +144,7 @@ include '../includes/header.php';
                                 <td><?= htmlspecialchars(substr($report['deskripsi'], 0, 50)) ?>...</td>
                                 <td>
                                     <?php if ($report['foto']): ?>
-                                        <a href="/Learning1/uploads/<?= htmlspecialchars($report['foto']) ?>"
+                                        <a href="/Learning1/public/uploads/<?= htmlspecialchars($report['foto']) ?>"
                                             target="_blank">Lihat</a>
                                     <?php else: ?>
                                         -
@@ -187,4 +187,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

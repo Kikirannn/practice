@@ -1,7 +1,7 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 requireRole('siswa');
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <h1>Buat Laporan Kerusakan</h1>
@@ -112,4 +112,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

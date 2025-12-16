@@ -1,7 +1,7 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 requireRole('admin');
 
@@ -64,7 +64,7 @@ $sql = "SELECT status, COUNT(*) as total FROM laporan GROUP BY status";
 $stmt = $pdo->query($sql);
 $statusBreakdown = $stmt->fetchAll();
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <!-- Print Header (hidden on screen, shown on print) -->
@@ -234,4 +234,4 @@ include '../includes/header.php';
     <p>Sistem Pelaporan Kerusakan Fasilitas Sekolah | Laporan Statistik dicetak pada <?= date('d/m/Y H:i') ?></p>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>

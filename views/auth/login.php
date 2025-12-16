@@ -1,7 +1,7 @@
 <?php
-require_once 'config/session.php';
-require_once 'config/database.php';
-require_once 'includes/functions.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
 
 $error = '';
 
@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Redirect based on role
                 switch ($user['role']) {
                     case 'siswa':
-                        redirect('/Learning1/siswa/dashboard.php');
+                        redirect('/Learning1/views/siswa/dashboard.php');
                         break;
                     case 'admin':
-                        redirect('/Learning1/admin/dashboard.php');
+                        redirect('/Learning1/views/admin/dashboard.php');
                         break;
                     case 'teknisi':
-                        redirect('/Learning1/teknisi/dashboard.php');
+                        redirect('/Learning1/views/teknisi/dashboard.php');
                         break;
                 }
             } else {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Pelaporan Kerusakan Fasilitas</title>
-    <link rel="stylesheet" href="/Learning1/assets/css/style.css">
+    <link rel="stylesheet" href="/Learning1/public/css/style.css">
 </head>
 
 <body>

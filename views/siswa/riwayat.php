@@ -1,8 +1,8 @@
 <?php
-require_once '../config/session.php';
-require_once '../config/database.php';
-require_once '../includes/functions.php';
-require_once '../includes/tracking.php';
+require_once '../../config/session.php';
+require_once '../../config/database.php';
+require_once '../../includes/functions.php';
+require_once '../../includes/tracking.php';
 
 requireRole('siswa');
 
@@ -44,7 +44,7 @@ if (isset($_GET['detail'])) {
     }
 }
 
-include '../includes/header.php';
+include '../partials/header.php';
 ?>
 
 <h1>Riwayat Laporan</h1>
@@ -88,7 +88,7 @@ include '../includes/header.php';
                     <tr>
                         <td style="font-weight: bold;">Foto</td>
                         <td>
-                            <img src="/Learning1/uploads/<?= htmlspecialchars($selectedReport['foto']) ?>" class="img-preview"
+                            <img src="/Learning1/public/uploads/<?= htmlspecialchars($selectedReport['foto']) ?>" class="img-preview"
                                 alt="Foto Kerusakan">
                         </td>
                     </tr>
@@ -179,4 +179,4 @@ include '../includes/header.php';
     </div>
 <?php endif; ?>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../partials/footer.php'; ?>
