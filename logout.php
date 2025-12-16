@@ -3,5 +3,5 @@ require_once 'config/session.php';
 require_once 'includes/functions.php';
 
 destroySession();
-redirect('/Learning1/login.php');
+redirect('/Learning1/views/auth/login.php');
 ?>

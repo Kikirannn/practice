@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($error) {
     $_SESSION['error'] = $error;
     $reportId = $_POST['report_id'] ?? 0;
-    redirect("/Learning1/teknisi/tugas.php?detail=$reportId");
+    redirect("/Learning1/views/teknisi/tugas.php?detail=$reportId");
 }
 
 // If accessed directly without POST, redirect to tasks
