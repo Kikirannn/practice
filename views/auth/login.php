@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Pelaporan Kerusakan Fasilitas</title>
-    <link rel="stylesheet" href="/Learning1/public/css/style.css">
+    <link rel="stylesheet" href="<?= baseUrl('/public/css/style.css') ?>">
 </head>
 
 <body>
@@ -92,11 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
             </form>
 
-            <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #666;">
-                <p><strong>Demo Credentials:</strong></p>
-                <p>Siswa: siswa1 / password123</p>
-                <p>Admin: admin1 / password123</p>
-                <p>Teknisi: teknisi1 / password123</p>
+            <div style="margin-top: 15px; text-align: center; font-size: 14px;">
+                <p>Belum punya akun? <a href="<?= baseUrl('/views/auth/register.php') ?>" style="color: #000; text-decoration: underline;">Daftar di sini</a></p>
             </div>
         </div>
     </div>

@@ -144,7 +144,7 @@ include '../partials/header.php';
                                 <td><?= htmlspecialchars(substr($report['deskripsi'], 0, 50)) ?>...</td>
                                 <td>
                                     <?php if ($report['foto']): ?>
-                                        <a href="/Learning1/public/uploads/<?= htmlspecialchars($report['foto']) ?>"
+                                        <a href="<?= baseUrl('/public/uploads/' . htmlspecialchars($report['foto'])) ?>"
                                             target="_blank">Lihat</a>
                                     <?php else: ?>
                                         -
@@ -159,7 +159,8 @@ include '../partials/header.php';
                                             <option value="">Pilih Teknisi</option>
                                             <?php foreach ($technicians as $tech): ?>
                                                 <option value="<?= $tech['user_id'] ?>">
-                                                    <?= htmlspecialchars($tech['nama_lengkap']) ?></option>
+                                                    <?= htmlspecialchars($tech['nama_lengkap']) ?>
+                                                </option>
                                             <?php endforeach; ?>
                                         </select>
                                         <button type="submit" class="btn btn-success btn-sm"

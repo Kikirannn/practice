@@ -1,50 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?? 'Sistem Pelaporan Kerusakan' ?></title>
-    <link rel="stylesheet" href="/Learning1/public/css/style.css">
+    <link rel="stylesheet" href="<?= baseUrl('/public/css/style.css') ?>">
 </head>
+
 <body>
     <div class="header">
         <nav class="navbar">
-            <a href="/Learning1/index.php" class="navbar-brand">
+            <a href="<?= baseUrl('/index.php') ?>" class="navbar-brand">
                 🏫 Sistem Pelaporan Kerusakan
             </a>
-            
+
             <ul class="navbar-menu">
                 <?php if (isLoggedIn()): ?>
                     <?php $role = getCurrentUserRole(); ?>
-                    
+
                     <?php if ($role === 'siswa'): ?>
-                        <li><a href="/Learning1/views/siswa/dashboard.php" class="<?= isset($activePage) && $activePage === 'dashboard' ? 'active' : '' ?>">Dashboard</a></li>
-                        <li><a href="/Learning1/views/siswa/lapor.php" class="<?= isset($activePage) && $activePage === 'lapor' ? 'active' : '' ?>">Buat Laporan</a></li>
-                        <li><a href="/Learning1/views/siswa/riwayat.php" class="<?= isset($activePage) && $activePage === 'riwayat' ? 'active' : '' ?>">Riwayat</a></li>
+                        <li><a href="<?= baseUrl('/views/siswa/dashboard.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'dashboard' ? 'active' : '' ?>">Dashboard</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/siswa/lapor.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'lapor' ? 'active' : '' ?>">Buat Laporan</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/siswa/riwayat.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'riwayat' ? 'active' : '' ?>">Riwayat</a></li>
                     <?php endif; ?>
-                    
+
                     <?php if ($role === 'admin'): ?>
-                        <li><a href="/Learning1/views/admin/dashboard.php" class="<?= isset($activePage) && $activePage === 'dashboard' ? 'active' : '' ?>">Dashboard</a></li>
-                        <li><a href="/Learning1/views/admin/validasi.php" class="<?= isset($activePage) && $activePage === 'validasi' ? 'active' : '' ?>">Validasi</a></li>
-                        <li><a href="/Learning1/views/admin/laporan.php" class="<?= isset($activePage) && $activePage === 'laporan' ? 'active' : '' ?>">Semua Laporan</a></li>
-                        <li><a href="/Learning1/views/admin/reporting.php" class="<?= isset($activePage) && $activePage === 'reporting' ? 'active' : '' ?>">Reporting</a></li>
-                        <li><a href="/Learning1/views/admin/kelola_user.php" class="<?= isset($activePage) && $activePage === 'kelola_user' ? 'active' : '' ?>">Kelola User</a></li>
+                        <li><a href="<?= baseUrl('/views/admin/dashboard.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'dashboard' ? 'active' : '' ?>">Dashboard</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/admin/validasi.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'validasi' ? 'active' : '' ?>">Validasi</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/admin/laporan.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'laporan' ? 'active' : '' ?>">Semua Laporan</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/admin/reporting.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'reporting' ? 'active' : '' ?>">Reporting</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/admin/kelola_user.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'kelola_user' ? 'active' : '' ?>">Kelola
+                                User</a></li>
                     <?php endif; ?>
-                    
+
                     <?php if ($role === 'teknisi'): ?>
-                        <li><a href="/Learning1/views/teknisi/dashboard.php" class="<?= isset($activePage) && $activePage === 'dashboard' ? 'active' : '' ?>">Dashboard</a></li>
-                        <li><a href="/Learning1/views/teknisi/tugas.php" class="<?= isset($activePage) && $activePage === 'tugas' ? 'active' : '' ?>">Tugas Saya</a></li>
+                        <li><a href="<?= baseUrl('/views/teknisi/dashboard.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'dashboard' ? 'active' : '' ?>">Dashboard</a>
+                        </li>
+                        <li><a href="<?= baseUrl('/views/teknisi/tugas.php') ?>"
+                                class="<?= isset($activePage) && $activePage === 'tugas' ? 'active' : '' ?>">Tugas Saya</a></li>
                     <?php endif; ?>
-                    
+
                     <li style="border-left: 1px solid #ccc; padding-left: 10px;">
                         <span style="font-weight: bold;"><?= getCurrentUserName() ?> (<?= getRoleName($role) ?>)</span>
                     </li>
-                    <li><a href="/Learning1/logout.php">Logout</a></li>
+                    <li><a href="<?= baseUrl('/logout.php') ?>">Logout</a></li>
                 <?php else: ?>
-                    <li><a href="/Learning1/views/auth/login.php">Login</a></li>
+                    <li><a href="<?= baseUrl('/views/auth/login.php') ?>">Login</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
     </div>
-    
+
     <div class="container">

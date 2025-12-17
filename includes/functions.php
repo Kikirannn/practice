@@ -1,11 +1,56 @@
 <?php
 // Helper Functions
 
-// Redirect to a URL
+// Redirect to a URL with auto-detect base path
 function redirect($url)
 {
-    header("Location: " . $url);
+    // Jika URL sudah lengkap (http/https), langsung redirect
+    if (strpos($url, 'http') === 0) {
+        header("Location: " . $url);
+        exit();
+    }
+
+    // Deteksi apakah menggunakan virtual host atau localhost
+    $host = $_SERVER['HTTP_HOST'];
+    $isVirtualHost = (strpos($host, '.test') !== false || strpos($host, '.local') !== false);
+
+    // Tentukan base path
+    $basePath = $isVirtualHost ? '' : '/Learning1';
+
+    // Jika URL dimulai dengan /Learning1, hilangkan untuk normalisasi
+    if (strpos($url, '/Learning1') === 0) {
+        $url = substr($url, strlen('/Learning1'));
+    }
+
+    // Tambahkan base path dari server
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+    $fullUrl = $protocol . '://' . $host . $basePath . $url;
+
+    header("Location: " . $fullUrl);
     exit();
+}
+
+// Get base URL for assets and links
+function baseUrl($path = '')
+{
+    // Deteksi apakah menggunakan virtual host atau localhost
+    $host = $_SERVER['HTTP_HOST'];
+    $isVirtualHost = (strpos($host, '.test') !== false || strpos($host, '.local') !== false);
+
+    // Tentukan base path
+    $basePath = $isVirtualHost ? '' : '/Learning1';
+
+    // Hilangkan /Learning1 dari path jika ada
+    if (strpos($path, '/Learning1') === 0) {
+        $path = substr($path, strlen('/Learning1'));
+    }
+
+    // Pastikan path dimulai dengan /
+    if (!empty($path) && strpos($path, '/') !== 0) {
+        $path = '/' . $path;
+    }
+
+    return $basePath . $path;
 }
 
 // Check if user is logged in, redirect to login if not
