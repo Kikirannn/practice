@@ -12,7 +12,6 @@ $activePage = 'tugas';
 $userId = getCurrentUserId();
 $pdo = getDBConnection();
 
-// Get all assigned tasks
 $sql = "SELECT l.*, u.nama_lengkap as pelapor 
         FROM laporan l
         JOIN users u ON l.user_id = u.user_id
@@ -28,7 +27,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([':user_id' => $userId]);
 $tasks = $stmt->fetchAll();
 
-// Get detail if requested
 $selectedTask = null;
 $tracking = [];
 
@@ -55,7 +53,6 @@ include '../partials/header.php';
 <h1>Tugas Saya</h1>
 
 <?php if ($selectedTask): ?>
-    <!-- Detail View -->
     <div class="card">
         <div class="card-header">
             Detail Tugas: <?= htmlspecialchars($selectedTask['judul']) ?>
@@ -92,14 +89,13 @@ include '../partials/header.php';
                     <tr>
                         <td style="font-weight: bold;">Foto</td>
                         <td>
-                            <img src="/Learning1/public/uploads/<?= htmlspecialchars($selectedTask['foto']) ?>" class="img-preview"
-                                alt="Foto Kerusakan">
+                            <img src="<?= baseUrl('/foto_laporan/' . htmlspecialchars($selectedTask['foto'])) ?>"
+                                class="img-preview" alt="Foto Kerusakan">
                         </td>
                     </tr>
                 <?php endif; ?>
             </table>
 
-            <!-- Update Status Form -->
             <?php if ($selectedTask['status'] !== 'done'): ?>
                 <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; border-radius: 5px;">
                     <h3 style="margin-bottom: 15px;">Update Status</h3>
@@ -128,7 +124,6 @@ include '../partials/header.php';
                 </div>
             <?php endif; ?>
 
-            <!-- Tracking History -->
             <?php if (!empty($tracking)): ?>
                 <h3 style="margin-top: 30px; margin-bottom: 15px;">Riwayat Perubahan Status</h3>
                 <div class="table-responsive">
@@ -167,7 +162,6 @@ include '../partials/header.php';
         </div>
     </div>
 <?php else: ?>
-    <!-- List View -->
     <div class="card">
         <div class="card-header">
             Semua Tugas yang Ditugaskan (<?= count($tasks) ?>)

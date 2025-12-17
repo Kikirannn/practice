@@ -1,19 +1,14 @@
 <?php
-// Test Password Hash Generator
-// File ini untuk mengecek dan generate password hash yang benar
-
 echo "<h2>Password Hash Tester</h2>";
 
 $password = 'password123';
 
-// Generate new hash
 $newHash = password_hash($password, PASSWORD_DEFAULT);
 
 echo "<h3>Information:</h3>";
 echo "Plain Password: <strong>$password</strong><br>";
 echo "New Generated Hash: <br><code>$newHash</code><br><br>";
 
-// Test hash dari database.sql
 $hashFromDatabase = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
 
 echo "<h3>Verification Test:</h3>";
@@ -48,7 +43,6 @@ try {
     $pdo = getDBConnection();
     echo "<span style='color: green;'>✅ Database connection SUCCESS</span><br>";
     
-    // Check if user exists
     $sql = "SELECT * FROM users WHERE username = 'siswa1'";
     $stmt = $pdo->query($sql);
     $user = $stmt->fetch();
@@ -61,7 +55,6 @@ try {
         echo "- Role: " . htmlspecialchars($user['role']) . "<br>";
         echo "- Password Hash: <code>" . htmlspecialchars($user['password']) . "</code><br><br>";
         
-        // Test password from database
         if (password_verify($password, $user['password'])) {
             echo "<span style='color: green; font-weight: bold;'>✅✅✅ PASSWORD CORRECT! Login seharusnya berhasil!</span><br>";
         } else {

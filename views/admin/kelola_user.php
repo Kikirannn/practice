@@ -10,11 +10,9 @@ $activePage = 'kelola_user';
 
 $pdo = getDBConnection();
 
-// Handle form submissions
 $message = '';
 $messageType = '';
 
-// Add new user
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add') {
     try {
         $username = sanitize($_POST['username']);
@@ -22,27 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $nama_lengkap = sanitize($_POST['nama_lengkap']);
         $role = sanitize($_POST['role']);
         
-        // Validate inputs
         if (empty($username) || empty($password) || empty($nama_lengkap) || empty($role)) {
             throw new Exception('Semua field harus diisi!');
         }
         
-        // Validate role
         if (!in_array($role, ['siswa', 'admin', 'teknisi'])) {
             throw new Exception('Role tidak valid!');
         }
         
-        // Check if username already exists
         $stmt = $pdo->prepare("SELECT user_id FROM users WHERE username = ?");
         $stmt->execute([$username]);
         if ($stmt->fetch()) {
             throw new Exception('Username sudah digunakan!');
         }
         
-        // Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
-        // Insert new user
         $stmt = $pdo->prepare("INSERT INTO users (username, password, nama_lengkap, role) VALUES (?, ?, ?, ?)");
         $stmt->execute([$username, $hashedPassword, $nama_lengkap, $role]);
         
@@ -54,17 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Delete user
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
     try {
         $user_id = (int)$_POST['user_id'];
         
-        // Prevent deleting yourself
         if ($user_id === getCurrentUserId()) {
             throw new Exception('Tidak dapat menghapus akun Anda sendiri!');
         }
         
-        // Delete user
         $stmt = $pdo->prepare("DELETE FROM users WHERE user_id = ?");
         $stmt->execute([$user_id]);
         
@@ -76,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Update user
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
     try {
         $user_id = (int)$_POST['user_id'];
@@ -85,31 +74,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $role = sanitize($_POST['role']);
         $password = $_POST['password'];
         
-        // Validate inputs
         if (empty($username) || empty($nama_lengkap) || empty($role)) {
             throw new Exception('Semua field harus diisi!');
         }
         
-        // Validate role
         if (!in_array($role, ['siswa', 'admin', 'teknisi'])) {
             throw new Exception('Role tidak valid!');
         }
         
-        // Check if username is taken by another user
         $stmt = $pdo->prepare("SELECT user_id FROM users WHERE username = ? AND user_id != ?");
         $stmt->execute([$username, $user_id]);
         if ($stmt->fetch()) {
             throw new Exception('Username sudah digunakan!');
         }
         
-        // Update user
         if (!empty($password)) {
-            // Update with new password
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("UPDATE users SET username = ?, password = ?, nama_lengkap = ?, role = ? WHERE user_id = ?");
             $stmt->execute([$username, $hashedPassword, $nama_lengkap, $role, $user_id]);
         } else {
-            // Update without changing password
             $stmt = $pdo->prepare("UPDATE users SET username = ?, nama_lengkap = ?, role = ? WHERE user_id = ?");
             $stmt->execute([$username, $nama_lengkap, $role, $user_id]);
         }
@@ -122,12 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Get all users
 $sql = "SELECT user_id, username, nama_lengkap, role, created_at FROM users ORDER BY created_at DESC";
 $stmt = $pdo->query($sql);
 $users = $stmt->fetchAll();
 
-// Separate users by role
 $siswa_list = [];
 $teknisi_list = [];
 $admin_list = [];
@@ -318,7 +299,6 @@ include '../partials/header.php';
         </div>
     </div>
     <div class="card-body">
-        <!-- Siswa Tab -->
         <div id="siswa-tab" class="tab-content active">
             <div style="margin-bottom: 20px;">
                 <button class="btn btn-primary" onclick="openAddModal('siswa')">+ Tambah Siswa</button>
@@ -359,7 +339,6 @@ include '../partials/header.php';
             </div>
         </div>
 
-        <!-- Teknisi Tab -->
         <div id="teknisi-tab" class="tab-content">
             <div style="margin-bottom: 20px;">
                 <button class="btn btn-primary" onclick="openAddModal('teknisi')">+ Tambah Teknisi</button>
@@ -400,7 +379,6 @@ include '../partials/header.php';
             </div>
         </div>
 
-        <!-- Admin Tab -->
         <div id="admin-tab" class="tab-content">
             <div style="margin-bottom: 20px;">
                 <button class="btn btn-primary" onclick="openAddModal('admin')">+ Tambah Admin</button>
@@ -445,7 +423,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Add User Modal -->
 <div id="addModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -479,7 +456,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Edit User Modal -->
 <div id="editModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -522,29 +498,24 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Delete Confirmation Form -->
 <form id="deleteForm" method="POST" action="" style="display: none;">
     <input type="hidden" name="action" value="delete">
     <input type="hidden" name="user_id" id="delete_user_id">
 </form>
 
 <script>
-// Tab switching
 document.querySelectorAll('.tab-button').forEach(button => {
     button.addEventListener('click', function() {
         const tabName = this.getAttribute('data-tab');
         
-        // Remove active class from all buttons and contents
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         
-        // Add active class to clicked button and corresponding content
         this.classList.add('active');
         document.getElementById(tabName + '-tab').classList.add('active');
     });
 });
 
-// Add Modal
 function openAddModal(role) {
     const roleName = role === 'siswa' ? 'Siswa' : (role === 'teknisi' ? 'Teknisi' : 'Admin');
     document.getElementById('addModalTitle').textContent = 'Tambah ' + roleName;
@@ -559,7 +530,6 @@ function closeAddModal() {
     document.getElementById('add_nama_lengkap').value = '';
 }
 
-// Edit Modal
 function openEditModal(user) {
     document.getElementById('edit_user_id').value = user.user_id;
     document.getElementById('edit_username').value = user.username;
@@ -573,7 +543,6 @@ function closeEditModal() {
     document.getElementById('editModal').classList.remove('active');
 }
 
-// Delete confirmation
 function confirmDelete(userId, userName) {
     if (confirm('Apakah Anda yakin ingin menghapus user "' + userName + '"?\n\nSemua data terkait user ini akan ikut terhapus!')) {
         document.getElementById('delete_user_id').value = userId;
@@ -581,7 +550,6 @@ function confirmDelete(userId, userName) {
     }
 }
 
-// Close modal when clicking outside
 window.onclick = function(event) {
     const addModal = document.getElementById('addModal');
     const editModal = document.getElementById('editModal');

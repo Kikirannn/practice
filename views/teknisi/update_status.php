@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (empty($catatan)) {
         $error = 'Catatan perbaikan harus diisi';
     } else {
-        // Validate state machine
         if (!validateStatusChange($currentStatus, $newStatus)) {
             $error = 'Perubahan status tidak valid. Status saat ini: ' . formatStatus($currentStatus);
         } else {
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pdo = getDBConnection();
                 $pdo->beginTransaction();
 
-                // Verify task is assigned to this technician
                 $sql = "SELECT assigned_to FROM laporan WHERE report_id = :report_id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([':report_id' => $reportId]);
@@ -40,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     throw new Exception('Anda tidak memiliki akses untuk mengupdate laporan ini');
                 }
 
-                // Update status
                 $sql = "UPDATE laporan SET status = :new_status, updated_at = NOW() WHERE report_id = :report_id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
@@ -48,14 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':report_id' => $reportId
                 ]);
 
-                // Log status change (manual trigger)
                 logStatusChange($reportId, $currentStatus, $newStatus, $userId, $catatan);
 
                 $pdo->commit();
 
                 $success = 'Status berhasil diupdate';
 
-                // Redirect back to task detail
                 header("Location: tugas.php?detail=$reportId&success=1");
                 exit;
 
@@ -67,13 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// If there's an error, redirect back with error message
 if ($error) {
     $_SESSION['error'] = $error;
     $reportId = $_POST['report_id'] ?? 0;
     redirect("/Learning1/views/teknisi/tugas.php?detail=$reportId");
 }
 
-// If accessed directly without POST, redirect to tasks
 redirect('/Learning1/views/teknisi/tugas.php');
 ?>

@@ -3,7 +3,6 @@ require_once 'config/session.php';
 require_once 'config/database.php';
 require_once 'includes/functions.php';
 
-// Redirect based on role if already logged in
 if (isLoggedIn()) {
     $role = getCurrentUserRole();
 

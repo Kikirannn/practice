@@ -1,19 +1,6 @@
 <?php
-// Tracking Progress - Manual Trigger via PHP
 
 require_once __DIR__ . '/../config/database.php';
-
-/**
- * Log perubahan status laporan ke tabel tracking_progress
- * Fungsi ini dipanggil manual setiap kali ada perubahan status (bukan SQL trigger)
- * 
- * @param int $report_id ID laporan
- * @param string $status_awal Status sebelum perubahan
- * @param string $status_akhir Status setelah perubahan
- * @param int|null $technician_id ID teknisi (opsional)
- * @param string|null $catatan Catatan perubahan (opsional)
- * @return bool True jika berhasil, false jika gagal
- */
 function logStatusChange($report_id, $status_awal, $status_akhir, $technician_id = null, $catatan = null)
 {
     try {
@@ -39,12 +26,7 @@ function logStatusChange($report_id, $status_awal, $status_akhir, $technician_id
     }
 }
 
-/**
- * Get tracking history untuk suatu laporan
- * 
- * @param int $report_id ID laporan
- * @return array Array of tracking records
- */
+
 function getTrackingHistory($report_id)
 {
     try {
@@ -66,16 +48,8 @@ function getTrackingHistory($report_id)
     }
 }
 
-/**
- * Validate state machine untuk perubahan status
- * 
- * @param string $current_status Status saat ini
- * @param string $new_status Status baru yang diinginkan
- * @return bool True jika valid, false jika tidak valid
- */
 function validateStatusChange($current_status, $new_status)
 {
-    // Allowed transitions
     $allowedTransitions = [
         'open' => ['process', 'reject'],
         'process' => ['done'],

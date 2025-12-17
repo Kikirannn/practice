@@ -10,7 +10,6 @@ $activePage = 'laporan';
 
 $pdo = getDBConnection();
 
-// Build filter query
 $where = [];
 $params = [];
 
@@ -41,7 +40,6 @@ if (!empty($_GET['lokasi'])) {
 
 $whereClause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 
-// Get filtered reports
 $sql = "SELECT l.*, u.nama_lengkap as pelapor, t.nama_lengkap as teknisi_nama 
         FROM laporan l
         JOIN users u ON l.user_id = u.user_id
@@ -53,7 +51,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $reports = $stmt->fetchAll();
 
-// Get technicians for filter
 $sql = "SELECT user_id, nama_lengkap FROM users WHERE role = 'teknisi' ORDER BY nama_lengkap";
 $stmt = $pdo->query($sql);
 $technicians = $stmt->fetchAll();
@@ -61,7 +58,6 @@ $technicians = $stmt->fetchAll();
 include '../partials/header.php';
 ?>
 
-<!-- Print Header (hidden on screen, shown on print) -->
 <div class="print-header" style="display: none;">
     <h2>LAPORAN KERUSAKAN FASILITAS SEKOLAH</h2>
     <p>Daftar Semua Laporan</p>
@@ -181,7 +177,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Print Footer (hidden on screen, shown on print) -->
 <div class="print-footer" style="display: none;">
     <p>Sistem Pelaporan Kerusakan Fasilitas Sekolah | Halaman ini dicetak pada <?= date('d/m/Y H:i') ?></p>
     <p>Total Laporan Ditampilkan: <?= count($reports) ?></p>

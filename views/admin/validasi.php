@@ -14,7 +14,6 @@ $error = '';
 
 $pdo = getDBConnection();
 
-// Handle approve/reject actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reportId = (int) ($_POST['report_id'] ?? 0);
     $action = $_POST['action'] ?? '';
@@ -28,13 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $pdo->beginTransaction();
 
-                // Get current status
                 $sql = "SELECT status FROM laporan WHERE report_id = :report_id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([':report_id' => $reportId]);
                 $currentStatus = $stmt->fetchColumn();
 
-                // Update laporan
                 $sql = "UPDATE laporan SET status = 'process', assigned_to = :technician_id WHERE report_id = :report_id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
@@ -42,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':technician_id' => $technician_id
                 ]);
 
-                // Log status change (manual trigger)
                 logStatusChange($reportId, $currentStatus, 'process', $technician_id, 'Laporan di-approve dan ditugaskan ke teknisi');
 
                 $pdo->commit();
@@ -59,18 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo->beginTransaction();
 
-            // Get current status
             $sql = "SELECT status FROM laporan WHERE report_id = :report_id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':report_id' => $reportId]);
             $currentStatus = $stmt->fetchColumn();
 
-            // Update laporan
             $sql = "UPDATE laporan SET status = 'reject' WHERE report_id = :report_id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':report_id' => $reportId]);
 
-            // Log status change (manual trigger)
             logStatusChange($reportId, $currentStatus, 'reject', null, $catatan ?: 'Laporan ditolak');
 
             $pdo->commit();
@@ -83,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get pending reports (status = open)
 $sql = "SELECT l.*, u.nama_lengkap as pelapor 
         FROM laporan l
         JOIN users u ON l.user_id = u.user_id
@@ -93,7 +85,6 @@ $sql = "SELECT l.*, u.nama_lengkap as pelapor
 $stmt = $pdo->query($sql);
 $pendingReports = $stmt->fetchAll();
 
-// Get technicians
 $sql = "SELECT user_id, nama_lengkap FROM users WHERE role = 'teknisi' ORDER BY nama_lengkap";
 $stmt = $pdo->query($sql);
 $technicians = $stmt->fetchAll();
@@ -144,14 +135,13 @@ include '../partials/header.php';
                                 <td><?= htmlspecialchars(substr($report['deskripsi'], 0, 50)) ?>...</td>
                                 <td>
                                     <?php if ($report['foto']): ?>
-                                        <a href="<?= baseUrl('/public/uploads/' . htmlspecialchars($report['foto'])) ?>"
+                                        <a href="<?= baseUrl('/foto_laporan/' . htmlspecialchars($report['foto'])) ?>"
                                             target="_blank">Lihat</a>
                                     <?php else: ?>
                                         -
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <!-- Approve Form -->
                                     <form method="POST" style="display: inline-block; margin-right: 5px;">
                                         <input type="hidden" name="report_id" value="<?= $report['report_id'] ?>">
                                         <input type="hidden" name="action" value="approve">
@@ -169,7 +159,6 @@ include '../partials/header.php';
                                         </button>
                                     </form>
 
-                                    <!-- Reject Form -->
                                     <form method="POST" style="display: inline-block;"
                                         onsubmit="return confirm('Tolak laporan ini?')">
                                         <input type="hidden" name="report_id" value="<?= $report['report_id'] ?>">

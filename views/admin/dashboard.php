@@ -10,7 +10,6 @@ $activePage = 'dashboard';
 
 $pdo = getDBConnection();
 
-// Get overall statistics
 $sql = "SELECT 
             COUNT(*) as total,
             SUM(CASE WHEN status = 'open' THEN 1 ELSE 0 END) as open_count,
@@ -22,7 +21,6 @@ $sql = "SELECT
 $stmt = $pdo->query($sql);
 $stats = $stmt->fetch();
 
-// Get recent reports
 $sql = "SELECT l.*, u.nama_lengkap as pelapor, t.nama_lengkap as teknisi_nama 
         FROM laporan l
         JOIN users u ON l.user_id = u.user_id

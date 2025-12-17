@@ -11,7 +11,6 @@ $activePage = 'dashboard';
 $userId = getCurrentUserId();
 $pdo = getDBConnection();
 
-// Get statistics for this technician
 $sql = "SELECT 
             COUNT(*) as total,
             SUM(CASE WHEN status = 'process' THEN 1 ELSE 0 END) as process_count,
@@ -23,7 +22,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([':user_id' => $userId]);
 $stats = $stmt->fetch();
 
-// Get recent assigned tasks
 $sql = "SELECT l.*, u.nama_lengkap as pelapor 
         FROM laporan l
         JOIN users u ON l.user_id = u.user_id

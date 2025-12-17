@@ -1,11 +1,9 @@
 <?php
-// Database Configuration
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'learning1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
-// Create PDO connection
 function getDBConnection()
 {
     static $pdo = null;

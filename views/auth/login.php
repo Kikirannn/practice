@@ -5,12 +5,10 @@ require_once '../../includes/functions.php';
 
 $error = '';
 
-// Redirect if already logged in
 if (isLoggedIn()) {
     redirect('/Learning1/index.php');
 }
 
-// Process login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = sanitize($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -28,10 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, $user['password'])) {
-                // Set session
                 setSessionData($user);
 
-                // Redirect based on role
                 switch ($user['role']) {
                     case 'siswa':
                         redirect('/Learning1/views/siswa/dashboard.php');

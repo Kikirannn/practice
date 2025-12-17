@@ -10,7 +10,6 @@ $activePage = 'reporting';
 
 $pdo = getDBConnection();
 
-// 1. Total laporan per bulan (last 6 months)
 $sql = "SELECT 
             DATE_FORMAT(tanggal_lapor, '%Y-%m') as bulan,
             COUNT(*) as total
@@ -21,7 +20,6 @@ $sql = "SELECT
 $stmt = $pdo->query($sql);
 $monthlyReports = $stmt->fetchAll();
 
-// 2. Teknisi paling produktif (berdasarkan jumlah laporan selesai)
 $sql = "SELECT 
             u.nama_lengkap,
             COUNT(*) as total_done
@@ -34,7 +32,6 @@ $sql = "SELECT
 $stmt = $pdo->query($sql);
 $topTechnicians = $stmt->fetchAll();
 
-// 3. Jumlah kerusakan berdasarkan lokasi
 $sql = "SELECT 
             SUBSTRING_INDEX(lokasi, '-', 1) as gedung,
             COUNT(*) as total
@@ -45,7 +42,6 @@ $sql = "SELECT
 $stmt = $pdo->query($sql);
 $locationStats = $stmt->fetchAll();
 
-// 4. Jumlah status done per minggu (last 8 weeks)
 $sql = "SELECT 
             YEARWEEK(tanggal_lapor) as minggu,
             YEAR(tanggal_lapor) as tahun,
@@ -59,7 +55,6 @@ $sql = "SELECT
 $stmt = $pdo->query($sql);
 $weeklyDone = $stmt->fetchAll();
 
-// 5. Status breakdown
 $sql = "SELECT status, COUNT(*) as total FROM laporan GROUP BY status";
 $stmt = $pdo->query($sql);
 $statusBreakdown = $stmt->fetchAll();
@@ -67,7 +62,6 @@ $statusBreakdown = $stmt->fetchAll();
 include '../partials/header.php';
 ?>
 
-<!-- Print Header (hidden on screen, shown on print) -->
 <div class="print-header" style="display: none;">
     <h2>LAPORAN STATISTIK KERUSAKAN FASILITAS SEKOLAH</h2>
     <p>Reporting & Analisis Data</p>
@@ -76,7 +70,6 @@ include '../partials/header.php';
 
 <h1>Reporting & Statistik</h1>
 
-<!-- Status Breakdown -->
 <div class="card">
     <div class="card-header">Status Laporan</div>
     <div class="card-body">
@@ -107,7 +100,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Monthly Reports -->
 <div class="card">
     <div class="card-header">Total Laporan Per Bulan (6 Bulan Terakhir)</div>
     <div class="card-body">
@@ -136,7 +128,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Top Technicians -->
 <div class="card">
     <div class="card-header">Teknisi Paling Produktif (Berdasarkan Laporan Selesai)</div>
     <div class="card-body">
@@ -167,7 +158,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Location Stats -->
 <div class="card">
     <div class="card-header">Jumlah Kerusakan Berdasarkan Lokasi/Gedung</div>
     <div class="card-body">
@@ -196,7 +186,6 @@ include '../partials/header.php';
     </div>
 </div>
 
-<!-- Weekly Done -->
 <div class="card">
     <div class="card-header">Laporan Selesai Per Minggu (8 Minggu Terakhir)</div>
     <div class="card-body">
@@ -229,7 +218,6 @@ include '../partials/header.php';
     <button onclick="window.print()" class="btn btn-primary">Cetak Laporan</button>
 </div>
 
-<!-- Print Footer (hidden on screen, shown on print) -->
 <div class="print-footer" style="display: none;">
     <p>Sistem Pelaporan Kerusakan Fasilitas Sekolah | Laporan Statistik dicetak pada <?= date('d/m/Y H:i') ?></p>
 </div>

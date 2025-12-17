@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Semua field wajib diisi kecuali foto';
     } else {
         try {
-            // Handle file upload
             $foto = null;
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] !== UPLOAD_ERR_NO_FILE) {
                 $foto = uploadFile($_FILES['foto']);
@@ -42,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $success = 'Laporan berhasil dibuat dan menunggu validasi admin';
 
-            // Clear form
             $_POST = array();
 
         } catch (Exception $e) {

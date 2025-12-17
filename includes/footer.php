@@ -1,4 +1,4 @@
-</div> <!-- End container -->
+</div>
 
 <div class="footer">
     <p>&copy; <?= date('Y') ?> Sistem Pelaporan Kerusakan Fasilitas Sekolah</p>

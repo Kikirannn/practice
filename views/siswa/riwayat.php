@@ -12,7 +12,6 @@ $activePage = 'riwayat';
 $userId = getCurrentUserId();
 $pdo = getDBConnection();
 
-// Get all reports for this user
 $sql = "SELECT l.*, u.nama_lengkap as teknisi_nama 
         FROM laporan l
         LEFT JOIN users u ON l.assigned_to = u.user_id
@@ -23,7 +22,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([':user_id' => $userId]);
 $reports = $stmt->fetchAll();
 
-// Get tracking for detail view
 $selectedReport = null;
 $tracking = [];
 
@@ -50,7 +48,6 @@ include '../partials/header.php';
 <h1>Riwayat Laporan</h1>
 
 <?php if ($selectedReport): ?>
-    <!-- Detail View -->
     <div class="card">
         <div class="card-header">
             Detail Laporan: <?= htmlspecialchars($selectedReport['judul']) ?>
@@ -88,8 +85,8 @@ include '../partials/header.php';
                     <tr>
                         <td style="font-weight: bold;">Foto</td>
                         <td>
-                            <img src="/Learning1/public/uploads/<?= htmlspecialchars($selectedReport['foto']) ?>" class="img-preview"
-                                alt="Foto Kerusakan">
+                            <img src="<?= baseUrl('/foto_laporan/' . htmlspecialchars($selectedReport['foto'])) ?>"
+                                class="img-preview" alt="Foto Kerusakan">
                         </td>
                     </tr>
                 <?php endif; ?>
@@ -133,7 +130,6 @@ include '../partials/header.php';
         </div>
     </div>
 <?php else: ?>
-    <!-- List View -->
     <div class="card">
         <div class="card-header">
             Semua Laporan Saya

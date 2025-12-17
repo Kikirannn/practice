@@ -1,11 +1,7 @@
-// Main JavaScript File
-
-// Confirmation dialog for delete/reject actions
 function confirmAction(message) {
     return confirm(message || 'Apakah Anda yakin?');
 }
 
-// Form validation
 function validateForm(formId) {
     const form = document.getElementById(formId);
     if (!form) return true;
@@ -29,7 +25,6 @@ function validateForm(formId) {
     return valid;
 }
 
-// File upload preview
 function previewImage(input, previewId) {
     const preview = document.getElementById(previewId);
     if (!preview) return;
@@ -46,7 +41,6 @@ function previewImage(input, previewId) {
     }
 }
 
-// Auto-hide alerts after 5 seconds
 document.addEventListener('DOMContentLoaded', function() {
     const alerts = document.querySelectorAll('.alert');
     
@@ -60,12 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Print report
 function printReport() {
     window.print();
 }
-
-// Export table to CSV
 function exportTableToCSV(tableId, filename) {
     const table = document.getElementById(tableId);
     if (!table) return;

@@ -6,19 +6,16 @@ require_once '../../includes/functions.php';
 $error = '';
 $success = '';
 
-// Redirect if already logged in
 if (isLoggedIn()) {
     redirect('/Learning1/index.php');
 }
 
-// Process registration
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = sanitize($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
     $nama_lengkap = sanitize($_POST['nama_lengkap'] ?? '');
 
-    // Validasi input
     if (empty($username) || empty($password) || empty($confirm_password) || empty($nama_lengkap)) {
         $error = 'Semua field harus diisi';
     } elseif (strlen($password) < 8) {
@@ -33,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo = getDBConnection();
 
-            // Cek apakah username sudah ada
             $sql = "SELECT user_id FROM users WHERE username = :username";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':username' => $username]);
@@ -41,10 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->fetch()) {
                 $error = 'Username sudah terdaftar, silakan gunakan username lain';
             } else {
-                // Hash password
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // Insert user baru dengan role siswa
                 $sql = "INSERT INTO users (username, password, nama_lengkap, role) 
                         VALUES (:username, :password, :nama_lengkap, 'siswa')";
                 $stmt = $pdo->prepare($sql);
@@ -56,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $success = 'Registrasi berhasil! Silakan login dengan akun Anda.';
                 
-                // Clear form
                 $username = '';
                 $nama_lengkap = '';
             }
@@ -170,7 +163,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        // Password strength indicator
         const passwordInput = document.getElementById('password');
         const strengthDiv = document.getElementById('passwordStrength');
 
@@ -197,7 +189,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             strengthDiv.className = 'password-strength ' + className;
         });
 
-        // Password match indicator
         const confirmPasswordInput = document.getElementById('confirm_password');
         const matchDiv = document.getElementById('passwordMatch');
 
@@ -220,7 +211,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         passwordInput.addEventListener('input', checkPasswordMatch);
         confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 
-        // Form validation
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             const password = passwordInput.value;
             const confirmPassword = confirmPasswordInput.value;
