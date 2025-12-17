@@ -136,7 +136,8 @@ include '../partials/header.php';
     <div class="card-header">
         <div class="flex justify-between align-center">
             <span>Hasil: <?= count($reports) ?> Laporan</span>
-            <button onclick="window.print()" class="btn btn-primary btn-sm">Cetak</button>
+            <a href="../../backend/actions/generate_pdf_laporan.php?<?= http_build_query($_GET) ?>"
+                class="btn btn-primary btn-sm">Download PDF</a>
         </div>
     </div>
     <div class="card-body">

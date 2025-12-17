@@ -215,7 +215,7 @@ include '../partials/header.php';
 </div>
 
 <div class="text-center mt-20">
-    <button onclick="window.print()" class="btn btn-primary">Cetak Laporan</button>
+    <a href="../../backend/actions/generate_pdf_reporting.php" class="btn btn-primary">Download Laporan PDF</a>
 </div>
 
 <div class="print-footer" style="display: none;">
